@@ -29,6 +29,7 @@ dependencies:
   cupertino_icons: ^1.0.0
   http: ^0.12.2
   http_parser: ^3.1.4
+  image_picker: ^0.6.7+14
   camera:
   path_provider:
   path:

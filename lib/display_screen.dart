@@ -29,6 +29,8 @@ class DisplayPictureScreen extends StatelessWidget {
 uploadFile(BuildContext context, var imagePath) async {
   var postUri = Uri.parse("http://157.230.32.117:5001/predict");
 
+  print(imagePath);
+
   var request = new http.MultipartRequest("POST", postUri);
   request.files.add(
     new http.MultipartFile(
@@ -36,7 +38,7 @@ uploadFile(BuildContext context, var imagePath) async {
       File(imagePath).readAsBytes().asStream(),
       File(imagePath).lengthSync(),
       filename: imagePath,
-      contentType: new MediaType('image', 'png'),
+      contentType: new MediaType('image', 'jpg'),
     ),
   );
 
@@ -45,8 +47,9 @@ uploadFile(BuildContext context, var imagePath) async {
 
   // listen for response
   if (response.statusCode == 200)
-    response.stream.transform(utf8.decoder).listen((Object value) {
-      showAlertDialog(context, value);
+    response.stream.transform(utf8.decoder).listen((value) {
+      Map<String, dynamic> result = jsonDecode(value);
+      showAlertDialog(context, result["result"]);
       print(value);
     });
   else
