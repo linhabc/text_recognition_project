@@ -6,10 +6,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http_parser/http_parser.dart';
 
-class DisplayPictureScreen extends StatelessWidget {
+class DisplayPictureScreenWithCrop extends StatelessWidget {
   final File image;
 
-  const DisplayPictureScreen({Key key, this.image}) : super(key: key);
+  const DisplayPictureScreenWithCrop({Key key, this.image}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

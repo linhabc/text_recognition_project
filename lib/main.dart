@@ -2,8 +2,10 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:text_recognition_project/display_screen.dart';
+import 'package:text_recognition_project/display_screen_with_crop.dart';
 
 void main() => runApp(MyApp());
 
@@ -42,7 +44,7 @@ class _MyHomePageState extends State<MyHomePage> {
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => DisplayPictureScreen(imagePath: path),
+          builder: (context) => DisplayPictureScreen(image: _image),
         ),
       );
   }
@@ -59,13 +61,20 @@ class _MyHomePageState extends State<MyHomePage> {
       }
     });
 
-    if (path != "")
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => DisplayPictureScreen(imagePath: path),
-        ),
-      );
+    if (path != "") _cropImage(path);
+  }
+
+  _cropImage(filePath) async {
+    File croppedImage = await ImageCropper.cropImage(
+      sourcePath: filePath,
+    );
+
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => DisplayPictureScreenWithCrop(image: croppedImage),
+      ),
+    );
   }
 
   @override
